@@ -10,13 +10,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 
 URL =  "https://pump.fun/profile/"
-DEFAULT_TIMEOUT = 35
+DEFAULT_TIMEOUT = 20
 
 
 
 def setup_driver():
     options = webdriver.ChromeOptions()
-    #options.add_argument("--headless")
+    options.add_argument("--headless")
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
@@ -27,11 +27,10 @@ def getProfile(driver):
     try:
         url = URL + str(input)
         driver.get(url)
-        time.sleep(3) # Wait for the page to load
         WebDriverWait(driver, DEFAULT_TIMEOUT).until(
             ec.presence_of_element_located((By.XPATH, "//*[@id='radix-:r0:']/button"))
         ).click()
-        time.sleep(2)
+
 
         WebDriverWait(driver, DEFAULT_TIMEOUT).until(
             ec.presence_of_element_located((By.XPATH, "//div[contains(text(),'coins created')]"))
